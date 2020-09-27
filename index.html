@@ -1,0 +1,151 @@
+<div style="margin: 20%;">
+  <span
+    data-module="emkt-tippy"
+    data-target="#emkt-tippy-1"
+    data-placement="top"
+    data-content="Clique aquiO"
+        >Clique aqui Top</span>
+</div>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+$( "[data-module='emkt-tippy']" ).hover(function(e) {
+	var $t = $(this).first();
+	var targetId = $t.data('target');
+	var placement = $t.data('placement');
+  var position = $t.position();
+  // console.log("left: " + position.left + ", top: " + position.top + ", bottom: " + $t.outerHeight(true))
+
+  if (checkElement(targetId)) {
+  	$(targetId).show();
+  }
+  else
+  {
+  	var $div = $( "<div></div>" );
+   	$div.css('position', 'absolute')
+   	$div.attr('id', targetId.substring(1))
+  	$div.addClass('emkt-tippy')
+  	$div.addClass(checkPlacement(placement))
+
+  	var aling = Math.trunc(position.left + $t.width() / 2)
+  	var valing = position.top + $t.height() / 2
+
+  	if (placementTop(placement))
+  	{
+			$div.css('top', position.top)
+			$div.css('left', aling)
+		}
+		else if (placementBottom(placement))
+		{
+			$div.css('top', position.top + $t.height())
+			$div.css('left', aling)
+		}
+		else if (placementRight(placement))
+		{
+			$div.css('top', valing)
+			$div.css('left', position.left + $t.width())
+		}
+		else if (placementLeft(placement))
+		{
+			$div.css('top', valing)
+			$div.css('left', position.left)
+		}
+
+  	var $divContent = $( "<div></div>" )
+  	$divContent.html($t.data('content'))
+  	$divContent.addClass('emkt-tippy-content')
+  	$div.append($divContent)
+
+   	$( "body" ).append($div);
+  }
+}, 
+function() {
+	var $t = $(this).first();
+	var targetId = $t.data('target');
+	$(targetId).hide();
+});
+
+function checkElement(ele) {
+	if($(ele).length > 0)
+		return true
+
+	return false
+}
+
+function checkPlacement(placement) {
+	if (placementTop(placement))
+		return 'emkt-tippy-top'
+	else if (placementRight(placement))
+		return 'emkt-tippy-right'
+	else if (placementBottom(placement))
+		return 'emkt-tippy-bottom'
+	else if (placementLeft(placement))
+		return 'emkt-tippy-left'
+	
+	return 'emkt-tippy-bottom'
+}
+
+function placementTop(placement) {
+	return placement == 'top'
+}
+
+function placementRight(placement) {
+	return placement == 'right'
+}
+
+function placementBottom(placement) {
+	return placement == 'bottom'
+}
+
+function placementLeft(placement) {
+	return placement == 'left'
+}
+</script>
+
+<style type="text/css">
+.emkt-tippy {
+	border-radius: 5px;
+	border: solid 1px black;
+	max-width: 200px;
+	min-width: 100px;
+	background-clip: padding-box;
+	text-align: center;
+}
+
+.emkt-tippy-top {
+	-moz-transform: translateX(-50%) translateY(-100%);
+  -ms-transform: translateX(-50%) translateY(-100%);
+  -webkit-transform: translateX(-50%) translateY(-100%);
+  transform: translateX(-50%) translateY(-100%);
+}
+
+.emkt-tippy-right {
+	-moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.emkt-tippy-bottom {
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-webkit-transform: translateX(-50%); 
+	transform: translateX(-50%);
+}
+
+.emkt-tippy-left {
+	-moz-transform: translateX(-100%) translateY(-50%);
+  -ms-transform: translateX(-100%) translateY(-50%);
+  -webkit-transform: translateX(-100%) translateY(-50%);
+  transform: translateX(-100%) translateY(-50%);
+}
+
+.emkt-tippy-content {
+	padding: 5px;
+	text-overflow: ellipsis;
+  overflow: hidden;
+}
+</style>
