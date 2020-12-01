@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
 	<title></title>
 </head>
@@ -10,7 +11,7 @@
 		    data-module="emkt-tippy"
 		    data-target="#emkt-tippy-0"
 		    data-placement="top"
-		    data-content="Clique aquiO"
+		    data-content="<b>Clique aquiO<b>"
 		        >Veja aqui Top</span>
 	  </div>
 	  <div class="conteiner">
@@ -18,7 +19,7 @@
 		    data-module="emkt-tippy"
 		    data-target="#emkt-tippy-1"
 		    data-placement="right"
-		    data-content="Clique aquiO"
+		    data-content="<span class='a-class'>Para prosseguir</span>"
 		        >Veja aqui Direita</span>
 	  </div>
 	  <div class="conteiner">
@@ -26,7 +27,7 @@
 		    data-module="emkt-tippy"
 		    data-target="#emkt-tippy-2"
 		    data-placement="bottom"
-		    data-content="Clique aquiO"
+		    data-content="Para prosseguir às próximas etapas é necessário finalizar uma de cada vez."
 		        >Veja aqui Baixo</span>
 	  </div>
 	  <div class="conteiner">
@@ -68,18 +69,18 @@ $( "[data-module='emkt-tippy']" ).hover(function(e) {
 
   	if (placementTop(placement))
   	{
-			$div.css('top', position.top)
+			$div.css('top', position.top - 10)
 			$div.css('left', aling)
 		}
 		else if (placementBottom(placement))
 		{
-			$div.css('top', position.top + $t.height())
+			$div.css('top', position.top + $t.height() + 11)
 			$div.css('left', aling)
 		}
 		else if (placementRight(placement))
 		{
 			$div.css('top', valing)
-			$div.css('left', position.left + $t.width())
+			$div.css('left', position.left + $t.width() + 11)
 		}
 		else if (placementLeft(placement))
 		{
@@ -92,7 +93,7 @@ $( "[data-module='emkt-tippy']" ).hover(function(e) {
   	$divContent.addClass('emkt-tippy-content')
   	$div.append($divContent)
 
-   	$( "body" ).append($div);
+   	$('body').append($div);
   }
 }, 
 function() {
@@ -142,10 +143,23 @@ function placementLeft(placement) {
 .emkt-tippy {
 	border-radius: 5px;
 	border: solid 1px black;
-	max-width: 200px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+	max-width: 350px;
 	min-width: 100px;
 	background-clip: padding-box;
 	text-align: center;
+}
+
+.emkt-tippy:hover {
+  display: block !important;
+}
+
+.emkt-tippy:after, .emkt-tippy:before {
+  content: "";
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
 }
 
 .emkt-tippy-top {
@@ -155,6 +169,18 @@ function placementLeft(placement) {
   transform: translateX(-50%) translateY(-100%);
 }
 
+.emkt-tippy.emkt-tippy-top:before {
+  bottom: -11px;
+  border-width: 10px 10px 0 10px;
+  border-color: black transparent transparent transparent;
+}
+
+.emkt-tippy.emkt-tippy-top:after {
+  bottom: -10px;
+  border-width: 10px 10px 0 10px;
+  border-color: white transparent transparent transparent;
+}
+
 .emkt-tippy-right {
 	-moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
@@ -162,11 +188,40 @@ function placementLeft(placement) {
   transform: translateY(-50%);
 }
 
+.emkt-tippy.emkt-tippy-right:before {
+  top: 50%;
+  left: -10px;
+  margin-top: -9px;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent black transparent transparent;
+}
+
+.emkt-tippy.emkt-tippy-right:after {
+  top: 50%;
+  left: -9px;
+  margin-top: -9px;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent white transparent transparent;
+}
+
+
 .emkt-tippy-bottom {
 	-moz-transform: translateX(-50%);
 	-ms-transform: translateX(-50%);
 	-webkit-transform: translateX(-50%); 
 	transform: translateX(-50%);
+}
+
+.emkt-tippy.emkt-tippy-bottom:before {
+  top: -11px;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent black transparent;
+}
+
+.emkt-tippy.emkt-tippy-bottom:after {
+  top: -10px;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent white transparent;
 }
 
 .emkt-tippy-left {
@@ -176,10 +231,21 @@ function placementLeft(placement) {
   transform: translateX(-100%) translateY(-50%);
 }
 
+.emkt-tippy.emkt-tippy-top:after,
+.emkt-tippy.emkt-tippy-top:before,
+.emkt-tippy.emkt-tippy-bottom:after,
+.emkt-tippy.emkt-tippy-bottom:before {
+  left: calc(50% - 10px);
+}
+
 .emkt-tippy-content {
 	padding: 5px;
 	text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.a-class{
+  color: red;
 }
 
 .buttons {
